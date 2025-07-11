@@ -57,10 +57,18 @@
             background-color: #e8d65a;
             border-color: #800080; /* Roxo mais escuro no hover */
         }
+         .imagem-fixa {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 100px;
+            height: auto; 
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
-
+    <img style="width:20%" src="http://localhost:8080/static/img/Eletro.png" alt="Logo-eletronjun" class="imagem-fixa">
     <div class="container">
         <h1 class="title">Laser Alarm</h1>
         <p class="mode-text">Modo Manual:</p>
