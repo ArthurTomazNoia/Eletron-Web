@@ -1,24 +1,33 @@
-from bottle import Bottle, request
-from .base_controller import BaseController
-from services.home_service import HomeService
+# controllers/home_controller.py
 
+from bottle import Bottle
+from .base_controller import BaseController # Importa a classe base
+
+# HomeController HERDA de BaseController
 class HomeController(BaseController):
     def __init__(self, app):
-        super().__init__(app)
+        # O super().__init__(app) chama o construtor da classe pai (BaseController)
+        # Isso é importante para que as rotas base (como a de arquivos estáticos) sejam configuradas
+        super().__init__(app) 
+        self._setup_home_routes()
 
-        self.setup_routes()
-        self.home_service = HomeService()
-
-
-    # Rotas User
-    def setup_routes(self):
-        self.app.route('/home', method='GET', callback=self.list_home)
+    def _setup_home_routes(self):
+        """Configura as rotas específicas desta página."""
+        self.app.route('/home', method='GET', callback=self.home)
+        self.app.route('/energia', method='GET', callback=self.energia)
+        self.app.route('/manual', method='GET', callback=self.manual)
+        
+    def home(self):
+        # A função render espera o NOME do arquivo de template, sem a barra inicial.
+        # Ex: 'home.tpl' ou 'views/home.html'
+        return self.render('home') 
     
+    def energia(self):
+        return self.render('energia')
+    
+    def manual(self):
+        return self.render('manual')
 
-    def list_home(self):
-        home = self.home_service.get_all()
-        return self.render('home', home=home)
-
-
+# Instancia o Bottle e o controller para serem importados no init
 home_routes = Bottle()
 home_controller = HomeController(home_routes)
