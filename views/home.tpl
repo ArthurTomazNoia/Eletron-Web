@@ -109,11 +109,11 @@
         </p>
 
         <div class="button-container">
-            <a href="manual" button class="btn">Energia</button>
+            <a href="energia" button class="btn">Energia</button>
 
             <button class="btn">Histórico</button>
 
-            <button class="btn">Manual</button>
+            <a href="manual" button class="btn">Manual</button>
 
         </div>
 

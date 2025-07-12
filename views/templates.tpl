@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laser Alarm - Modo Manual</title>
+    <title>Laser Alarm - Energia</title>
     <style>
-        /* Importa uma fonte do Google Fonts parecida com a da imagem */
         @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@700;900&display=swap');
 
         body {
@@ -31,14 +30,16 @@
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 2px;
-            /* Efeito de brilho sutil no título */
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
-            margin-bottom: 30px;
+            /* Efeito de brilho e borda roxa */
+            border: 2px solid #9400D3;
+            text-shadow: 0 0 8px rgba(148, 0, 211, 0.7);
+            padding: 10px 25px;
+            margin-bottom: 40px;
         }
 
-        .mode-text {
+        .page-subtitle {
             font-size: 1.8em;
-            margin-bottom: 50px;
+            margin-bottom: 30px;
         }
 
         .button-container {
@@ -46,7 +47,7 @@
             flex-direction: column;
             gap: 20px; /* Espaçamento entre os botões */
         }
-
+        
         .btn {
             border: none;
             padding: 20px 0;
@@ -78,27 +79,18 @@
             margin-top: 50px;
             font-size: 1.2em;
         }
-         .imagem-fixa {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 100px;
-            height: auto; 
-            z-index: 1000;
-        }
     </style>
 </head>
 <body>
-    <img style="width:20%" src="http://localhost:8080/static/img/Eletro.png" alt="Logo-eletronjun" class="imagem-fixa">
     <div class="container">
         <h1 class="title">Laser Alarm</h1>
-        <p class="mode-text">Energia:</p>
+        <p class="page-subtitle">Energia:</p>
         <div class="button-container">
-            <button class="btn btn-yellow">Ativar</button>
-            <button class="btn btn-red">Desativar</button>
+            <button class="btn btn-yellow">Ligar</button>
+            <button class="btn btn-red">Desligar</button>
         </div>
         <a href="/home" class="back-link">&larr; Voltar</a>
+        
     </div>
-
 </body>
 </html>

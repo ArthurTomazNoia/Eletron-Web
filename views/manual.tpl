@@ -57,6 +57,12 @@
             background-color: #e8d65a;
             border-color: #800080; /* Roxo mais escuro no hover */
         }
+        .back-link {
+            color: #00BFFF; /* Azul claro */
+            text-decoration: none;
+            margin-top: 50px;
+            font-size: 1.2em;
+        }
          .imagem-fixa {
             position: fixed;
             top: 20px;
@@ -73,7 +79,9 @@
         <h1 class="title">Laser Alarm</h1>
         <p class="mode-text">Modo Manual:</p>
         <button class="manual-button">Desativar</button>
+        <a href="/home" class="back-link">&larr; Voltar</a>
     </div>
+    
 
 </body>
 </html>
