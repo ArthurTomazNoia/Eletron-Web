@@ -14,7 +14,7 @@ class HomeController(BaseController):
     def _setup_home_routes(self):
         """Configura as rotas específicas desta página."""
         self.app.route('/home', method='GET', callback=self.home)
-        self.app.route('/energia', method='GET', callback=self.energia)
+        
         self.app.route('/manual', method='GET', callback=self.manual)
         self.app.route('/logs', method='GET', callback=self.logs)
         self.app.route('/tut', method='GET', callback=self.tut)
@@ -24,8 +24,7 @@ class HomeController(BaseController):
         # Ex: 'home.tpl' ou 'views/home.html'
         return self.render('home') 
     
-    def energia(self):
-        return self.render('energia')
+    
     
     def manual(self):
         return self.render('manual')

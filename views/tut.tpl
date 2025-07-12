@@ -93,7 +93,10 @@
     <div class="container">
         <h1 class="title">Laser Alarm</h1>
         <p class="mode-text">Como funciona?</p>
-         <p class="tutorial">O alarme é muito funnciona por isso.....</p>
+         <p class="tutorial">O alarme foi construído pela equipe técnica da Eletronjun, para o processo de entrada do trainee.(Explicacao d ecomo funciona).
+            <br>Modo Energia: Ligar/desligar o alarme. 
+            <br>Histórico: Logs de atividade. 
+            <br>Modo Manual: Ao entrar na tela poderá desativar apenas enquanto estiver no modo, ao sair, o status voltará ao que estava previamente.</p>
         
         <a href="/home" class="back-link">&larr; Voltar</a>
     </div>

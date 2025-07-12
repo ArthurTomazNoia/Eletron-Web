@@ -103,8 +103,7 @@
 
         <p class="status">
             Situação atual:
-            <span class="active">Ativo</span>/
-            <span class="inactive">inativo</span>/
+            <span id="status-display">--</span>
             ...
         </p>
 
@@ -119,6 +118,25 @@
 
         <a href="/tut" class="info-link">Como funciona?</a>
     </div>
+    <script>
+        // Esta função roda assim que o conteúdo da página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusDisplay = document.getElementById('status-display');
+            
+            // Lê o status salvo no "bloco de notas" do navegador
+            const alarmStatus = localStorage.getItem('alarmStatus');
+
+            // Verifica o valor e atualiza a tela
+            if (alarmStatus === 'ligado') {
+                statusDisplay.textContent = 'Ativo';
+                statusDisplay.className = 'status-active'; // Aplica a cor verde
+            } else { 
+                // Se for 'desligado' ou se nunca foi definido (null), consideramos desligado
+                statusDisplay.textContent = 'Inativo';
+                statusDisplay.className = 'status-inactive'; // Aplica a cor vermelha
+            }
+        });
+    </script>
 
 </body>
 </html>
