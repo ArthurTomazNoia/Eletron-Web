@@ -92,11 +92,9 @@
     <img style="width:20%" src="http://localhost:8080/static/img/Eletro.png" alt="Logo-eletronjun" class="imagem-fixa">
     <div class="container">
         <h1 class="title">Laser Alarm</h1>
-        <p class="mode-text">Energia:</p>
-        <div class="button-container">
-            <button class="btn btn-yellow">Ativar</button>
-            <button class="btn btn-red">Desativar</button>
-        </div>
+        <p class="mode-text">Como funciona?</p>
+         <p class="tutorial">O alarme é muito funnciona por isso.....</p>
+        
         <a href="/home" class="back-link">&larr; Voltar</a>
     </div>
 

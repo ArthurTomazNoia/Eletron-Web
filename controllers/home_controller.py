@@ -16,6 +16,8 @@ class HomeController(BaseController):
         self.app.route('/home', method='GET', callback=self.home)
         self.app.route('/energia', method='GET', callback=self.energia)
         self.app.route('/manual', method='GET', callback=self.manual)
+        self.app.route('/logs', method='GET', callback=self.logs)
+        self.app.route('/tut', method='GET', callback=self.tut)
         
     def home(self):
         # A função render espera o NOME do arquivo de template, sem a barra inicial.
@@ -27,6 +29,16 @@ class HomeController(BaseController):
     
     def manual(self):
         return self.render('manual')
+    
+    def logs(self):
+        return self.render('logs')
+    
+    def tut(self):
+        return self.render('tut')
+    
+
+    
+    
 
 # Instancia o Bottle e o controller para serem importados no init
 home_routes = Bottle()

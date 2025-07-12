@@ -111,13 +111,13 @@
         <div class="button-container">
             <a href="energia" button class="btn">Energia</button>
 
-            <button class="btn">Histórico</button>
+            <a href="logs" button class="btn">Histórico</button>
 
             <a href="manual" button class="btn">Manual</button>
 
         </div>
 
-        <a href="#" class="info-link">Como funciona?</a>
+        <a href="/tut" class="info-link">Como funciona?</a>
     </div>
 
 </body>
