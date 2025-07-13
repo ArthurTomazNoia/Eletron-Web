@@ -2,10 +2,7 @@
 import datetime
 import json
 import os
-from home_controller import HomeController, Home 
 
-# Ajusta o caminho para encontrar a pasta 'data' a partir da raiz do projeto
-# __file__ se refere a 'energia_model.py' -> dirname é 'model/' -> '..' sobe um nível
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 
 class EnergiaModel:
@@ -15,21 +12,24 @@ class EnergiaModel:
     DATA_PATH = os.path.join(DATA_DIR, 'power.json')
 
     def __init__(self):
-        # Garante que o diretório exista ao instanciar
         os.makedirs(DATA_DIR, exist_ok=True)
         self.status = self._load()
 
     def _load(self):
+        """
+        Carrega o status do arquivo power.json.
+        """
         if not os.path.exists(self.DATA_PATH):
-            return "desligado"
+            return "desligado"  # Retorna o padrão se o arquivo não existir
+
         try:
             with open(self.DATA_PATH, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-                
-                sorted_data = sorted(data, key=lambda x: x.get('id', 0), reverse=True)
-               
-                return [Home.from_dict(item) for item in sorted_data]
+                # CORREÇÃO: Pega o valor da chave 'status' do dicionário.
+                # Retorna 'desligado' se a chave não existir ou o arquivo for inválido.
+                return data.get('status', 'desligado')
         except (json.JSONDecodeError, TypeError):
+            # Retorna o padrão se o arquivo estiver vazio ou for um JSON inválido.
             return "desligado"
 
     def _save(self):

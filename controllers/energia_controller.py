@@ -1,52 +1,54 @@
-from bottle import Bottle, request
+from bottle import Bottle
 from .base_controller import BaseController
 from services.energia_service import EnergiaService
 
 class EnergiaController(BaseController):
-    """
-    Controller para gerenciar as rotas relacionadas ao status de energia.
-    """
     def __init__(self, app):
-        
         super().__init__(app)
-        
         self.energia_service = EnergiaService()
-        
         self.setup_routes()
 
     def setup_routes(self):
         """
-        Mapeia as URLs (rotas) para os métodos correspondentes deste controller.
+        Mapeia as URLs da API. Note o prefixo /api.
         """
-        self.app.route('/energia/status', method='GET', callback=self.get_status)
-        self.app.route('/energia/on', method='POST', callback=self.turn_on)
-        self.app.route('/energia/off', method='POST', callback=self.turn_off)
+        # Rota para a PÁGINA HTML
+        self.app.route('/energia', method='GET', callback=self.render_energia_page)
+
+        # Rotas para a API (retornam JSON)
+        self.app.route('/api/energia/status', method='GET', callback=self.get_status)
+        self.app.route('/api/energia/on', method='POST', callback=self.turn_on)
+        self.app.route('/api/energia/off', method='POST', callback=self.turn_off)
+
+    def render_energia_page(self):
+        """
+        Esta é a "porta da frente". Ela renderiza o arquivo HTML para o usuário.
+        """
+        # Supondo que seu template se chama 'energia.html' e está na pasta 'templates'
+        return self.render('energia') # O BaseController precisa ter esse método 'render'
 
     def get_status(self):
-        """
-        Endpoint para verificar o status atual da energia.
-        Usa o serviço para obter os dados e retorna em formato JSON.
-        """
         status_atual = self.energia_service.obter_status_atual()
         return {'status': status_atual}
 
     def turn_on(self):
-        """
-        Endpoint para ligar a energia.
-        Chama o serviço para executar a ação e retorna o novo status.
-        """
         self.energia_service.ligar_energia()
-        status_atual = self.energia_service.obter_status_atual()
-        return {'status': status_atual, 'message': 'Energia ativada com sucesso.'}
+        return {'status': 'ligado', 'message': 'Energia ativada.'}
 
     def turn_off(self):
-        """
-        Endpoint para desligar a energia.
-        Chama o serviço para executar a ação e retorna o novo status.
-        """
         self.energia_service.desligar_energia()
-        status_atual = self.energia_service.obter_status_atual()
-        return {'status': status_atual, 'message': 'Energia desativada com sucesso.'}
-    
+        return {'status': 'desligado', 'message': 'Energia desativada.'}
+
+# Nota: Para o self.render('energia') funcionar, seu BaseController precisa de um método render:
+#
+# class BaseController:
+#     def __init__(self, app):
+#         self.app = app
+#
+#     def render(self, template_name, **kwargs):
+#         # Importe a função 'template' do bottle
+#         from bottle import template
+#         return template(template_name, **kwargs)
+
 energia_routes = Bottle()
 energia_controller = EnergiaController(energia_routes)

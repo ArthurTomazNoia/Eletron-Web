@@ -5,138 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laser Alarm</title>
     <style>
-        /* Importa uma fonte do Google Fonts parecida com a da imagem */
+        /* Seu CSS, sem alterações... */
         @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@700;900&display=swap');
-
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: 'Heebo', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            text-align: center;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .title {
-            font-size: 3em;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            /* Efeito de brilho sutil no título */
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
-            margin-bottom: 40px;
-        }
-
-        .status {
-            font-size: 1.3em;
-            margin-bottom: 25px;
-        }
-
-        .status .active {
-            color: #32CD32; /* Verde */
-            font-weight: 700;
-        }
-
-        .status .inactive {
-            color: #DC143C; /* Vermelho */
-            font-weight: 700;
-        }
-
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px; /* Espaçamento entre os botões */
-        }
-
-        .btn {
-            background-color: #FEEA62; /* Amarelo */
-            color: #000;
-            border: none;
-            padding: 20px 0;
-            width: 350px; /* Largura dos botões */
-            font-size: 2em;
-            font-weight: 700;
-            font-family: 'Heebo', sans-serif;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn:hover {
-            background-color: #e8d65a; /* Um tom de amarelo mais escuro para o efeito hover */
-        }
-
-        .info-link {
-            color: #00BFFF; /* Azul claro */
-            text-decoration: none;
-            margin-top: 40px;
-            font-size: 1em;
-            font-weight: 700;
-        }
-
-        .info-link:hover {
-            text-decoration: underline;
-        }
-        .imagem-fixa {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 100px;
-            height: auto; 
-            z-index: 1000;
-        }
+        body { background-color: #000; color: #fff; font-family: 'Heebo', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; text-align: center; }
+        .container { display: flex; flex-direction: column; align-items: center; }
+        .title { font-size: 3em; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 8px rgba(255, 255, 255, 0.7); margin-bottom: 40px; }
+        .status { font-size: 1.3em; margin-bottom: 25px; }
+        .status .active { color: #32CD32; font-weight: 700; }
+        .status .inactive { color: #DC143C; font-weight: 700; }
+        .button-container { display: flex; flex-direction: column; gap: 15px; }
+        .btn { background-color: #FEEA62; color: #000; border: none; padding: 20px 0; width: 350px; font-size: 2em; font-weight: 700; font-family: 'Heebo', sans-serif; cursor: pointer; transition: background-color 0.3s ease; text-decoration: none; display: inline-block; }
+        .btn:hover { background-color: #e8d65a; }
+        .info-link { color: #00BFFF; text-decoration: none; margin-top: 40px; font-size: 1em; font-weight: 700; }
+        .info-link:hover { text-decoration: underline; }
+        .imagem-fixa { position: fixed; top: 20px; right: 20px; width: 150px; height: auto; z-index: 1000; }
     </style>
 </head>
 <body>
-    <img style="width:20%" src="http://localhost:8080/static/img/Eletro.png" alt="Logo-eletronjun" class="imagem-fixa">
+    <img style="width:20%" src="/static/img/Eletro.png" alt="Logo-eletronjun" class="imagem-fixa">
 
     <div class="container">
         <h1 class="title">Laser Alarm</h1>
 
         <p class="status">
             Situação atual:
-            <span id="status-display">--</span>
-            ...
+            <span id="status-display">Verificando...</span>
         </p>
 
         <div class="button-container">
-            <a href="energia" button class="btn">Energia</button>
-
-            <a href="logs" button class="btn">Histórico</button>
-
-            <a href="manual" button class="btn">Manual</button>
-
+            <a href="/energia" class="btn">Energia</a>
+            <a href="/logs" class="btn">Histórico</a>
+            <a href="/manual" class="btn">Manual</a>
         </div>
 
         <a href="/tut" class="info-link">Como funciona?</a>
     </div>
+
     <script>
-        // Esta função roda assim que o conteúdo da página carregar
-        document.addEventListener('DOMContentLoaded', function() {
+        // Função para atualizar a aparência do status na tela
+        function atualizarStatusNaTela(status) {
             const statusDisplay = document.getElementById('status-display');
-            
-            // Lê o status salvo no "bloco de notas" do navegador
-            const alarmStatus = localStorage.getItem('alarmStatus');
-
-            // Verifica o valor e atualiza a tela
-            if (alarmStatus === 'ligado') {
+            if (status === 'ligado') {
                 statusDisplay.textContent = 'Ativo';
-                statusDisplay.className = 'status-active'; // Aplica a cor verde
-            } else { 
-                // Se for 'desligado' ou se nunca foi definido (null), consideramos desligado
+                statusDisplay.className = 'active'; // Aplica a cor verde
+            } else {
                 statusDisplay.textContent = 'Inativo';
-                statusDisplay.className = 'status-inactive'; // Aplica a cor vermelha
+                statusDisplay.className = 'inactive'; // Aplica a cor vermelha
             }
-        });
-    </script>
+        }
 
+        // Função assíncrona para buscar o status NO SERVIDOR
+        async function verificarStatusDoServidor() {
+            try {
+                // Faz a chamada GET para o endpoint da API
+                const response = await fetch('/api/energia/status');
+                if (!response.ok) {
+                    throw new Error('Erro de rede.');
+                }
+                const data = await response.json();
+                atualizarStatusNaTela(data.status);
+
+            } catch (error) {
+                console.error("Falha ao buscar status:", error);
+                const statusDisplay = document.getElementById('status-display');
+                statusDisplay.textContent = 'Erro de conexão';
+                statusDisplay.className = 'inactive';
+            }
+        }
+
+        // Evento que dispara a verificação assim que a página terminar de carregar
+        document.addEventListener('DOMContentLoaded', verificarStatusDoServidor);
+    </script>
 </body>
 </html>
