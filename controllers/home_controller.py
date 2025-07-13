@@ -16,7 +16,7 @@ class HomeController(BaseController):
         self.app.route('/home', method='GET', callback=self.home)
         
         self.app.route('/manual', method='GET', callback=self.manual)
-        self.app.route('/logs', method='GET', callback=self.logs)
+        
         self.app.route('/tut', method='GET', callback=self.tut)
         
     def home(self):
@@ -28,9 +28,7 @@ class HomeController(BaseController):
     
     def manual(self):
         return self.render('manual')
-    
-    def logs(self):
-        return self.render('logs')
+   
     
     def tut(self):
         return self.render('tut')
