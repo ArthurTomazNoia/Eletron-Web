@@ -69,11 +69,41 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    window.deactivateEspManualMode = async function() {
+        console.log('Desativando Modo Manual do ESP32...');
+        const lastMode = localStorage.getItem('lastEspMode');
+
+        if (lastMode && (lastMode === 'auto' || lastMode === 'off')) {
+            console.log(`Retornando ao modo anterior: ${lastMode}`);
+            await setEspMode(lastMode);
+        } else {
+            console.warn('Nenhum modo anterior válido encontrado. Definindo modo automático como padrão.');
+            await setEspMode('auto');
+        }
+    }
+
     loadPowerStatusOnPageLoad();
 
     activateEspManualMode();
 
-    // Exemplo de como você conectaria a segunda função a um botão HTML (se houver um)
+    if (window.location.pathname === '/energia') {
+        const turnOnButton = document.getElementById('btn-ligar');
+        const turnOffButton = document.getElementById('btn-desligar');
+
+        if (turnOnButton) {
+            turnOnButton.addEventListener('click', () => setEspMode('auto'));
+        }
+        if (turnOffButton) {
+            turnOffButton.addEventListener('click', () => setEspMode('off'));
+        }
+    }
+    if (window.location.pathname === '/manual') {
+        const deactivateManualModeButton = document.getElementById('off_button');
+        if (deactivateManualModeButton) {
+            deactivateManualModeButton.addEventListener('click', window.deactivateEspManualMode);
+        }
+    }
+
     const toggleLaserButton = document.getElementById('toggleLaserButton');
     if (toggleLaserButton) {
         toggleLaserButton.addEventListener('click', window.toggleEspLaser);

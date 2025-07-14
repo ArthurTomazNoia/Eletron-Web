@@ -83,29 +83,10 @@
     </div>
     
     <script>
-        async function setEspMode(mode) {
-            let url = '';
-            if (mode === 'off') {
-                url = '/esp/off_mode';
-            } else {
-                console.error('Modo inválido para o ESP32:', mode);
-                return;
-            }
-            try {
-                const response = await fetch(url, { method: 'GET' });
-                const data = await response.text();
-                console.log(`Resposta do ESP32 para modo ${mode}:`, data);
-                alert(`Modo do ESP32 alterado para: ${mode.toUpperCase()}`);
-                loadPowerStatusOnPageLoad();
-            } catch (error) {
-                console.error(`Erro ao mudar modo do ESP32 para ${mode}:`, error);
-                alert('Erro ao comunicar com o dispositivo ESP32.');
-            }
-        }
 
-        const sair_manual = document.getElementById('off_button')
-        if (sair_manual){
-            sair_manual.addEventListener('click', () => setEspMode('off'))
+        const deactivateManualModeButton = document.getElementById('off_button');
+        if (deactivateManualModeButton) {
+            deactivateManualModeButton.addEventListener('click', window.deactivateEspManualMode);
         }
 
     </script>
