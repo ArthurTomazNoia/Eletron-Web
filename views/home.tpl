@@ -36,6 +36,7 @@
             <a href="/energia" class="btn">Energia</a>
             <a href="/logs" class="btn">Histórico</a>
             <a href="/manual" class="btn">Manual</a>
+            <a href="/configuracoes" class="btn">Config</a>
         </div>
 
         <a href="/tut" class="info-link">Como funciona?</a>
