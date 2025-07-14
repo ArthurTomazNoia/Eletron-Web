@@ -78,16 +78,96 @@
     <div class="container">
         <h1 class="title">Laser Alarm</h1>
         <p class="mode-text">Modo Manual:</p>
-        <button id="off_button"class="manual-button">Desativar</button>
-        <a href="/home" class="back-link">&larr; Voltar</a>
+
+        %if defined('message') and message:
+            <p class="message-display {{'error-message' if 'Erro' in message else ''}}">{{message}}</p>
+        %endif
+
+        <div class="status-section">
+            <p id="loading-status">Carregando status...</p>
+            <div id="actual-status-content" style="display: none;">
+                <p>Modo Atual: <span class="mode-status" id="current-mode-display">MANUAL</span></p>
+                <p>Laser: <span id="laser-status-display">?</span> | LDR: <span id="ldr-status-display">?</span></p>
+                <p>LED Amarelo: <span id="led-yellow-display">?</span></p> 
+                
+                <div id="manual-alert-section">
+
+                </div>
+            </div>
+        </div>
+
+        <h2>Ações do Modo Manual:</h2>
+        <div class="button-grid">
+            <button id="updateStatusBtn" class="btn btn-action">Atualizar Status Agora</button>
+
+            <a href="/esp/action/manual_alert/reset" class="manual-button">Resetar Intrusão</a>
+        </div>
+
+        <h2>Opções de Saída:</h2>
+        <div class="button-grid">
+            <a href="/" class="btn">Voltar ao Menu Principal</a>
+
+        </div>
     </div>
     
     <script>
 
-        const deactivateManualModeButton = document.getElementById('off_button');
-        if (deactivateManualModeButton) {
-            deactivateManualModeButton.addEventListener('click', window.deactivateEspManualMode);
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadingStatus = document.getElementById('loading-status');
+            const actualStatusContent = document.getElementById('actual-status-content');
+            const currentModeDisplay = document.getElementById('current-mode-display');
+            const laserStatusDisplay = document.getElementById('laser-status-display');
+            const ldrStatusDisplay = document.getElementById('ldr-status-display');
+            const ledYellowDisplay = document.getElementById('led-yellow-display');
+            const manualAlertSection = document.getElementById('manual-alert-section');
+
+            async function fetchAndRenderStatus() {
+                loadingStatus.style.display = 'block'; 
+                actualStatusContent.style.display = 'none'; 
+                manualAlertSection.innerHTML = ''; 
+
+                try {
+                    const response = await fetch('/esp/api/status'); 
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const status = await response.json(); 
+
+                    if (status.error) {
+                        loadingStatus.textContent = 'Erro: ' + status.error;
+                        loadingStatus.classList.add('error-message');
+                    } else {
+                        currentModeDisplay.textContent = status.mode.toUpperCase();
+                        laserStatusDisplay.textContent = status.laser_active ? 'ATIVO' : 'INATIVO';
+                        ldrStatusDisplay.textContent = status.ldr_status ? 'INTERROMPIDO' : 'NORMAL';
+                        // Apenas o LED Amarelo é relevante para intrusão manual
+                        ledYellowDisplay.textContent = status.led_amarelo ? 'ON' : 'OFF'; 
+
+                        if (status.mode === 'manual' && status.manual_interruption_detected) {
+                            manualAlertSection.innerHTML = `
+                                <p class="alert-message">ALERTA: Intrusão detectada!</p>
+                                <a href="/esp/action/manual_alert/reset" class="btn btn-action">Limpar Alerta Manual</a>
+                            `;
+                        }
+                        
+                        loadingStatus.style.display = 'none'; 
+                        actualStatusContent.style.display = 'block'; 
+                    }
+
+                } catch (error) {
+                    console.error('Erro ao buscar status:', error);
+                    loadingStatus.textContent = 'Erro ao carregar status: ' + error.message;
+                    loadingStatus.classList.add('error-message');
+                }
+            }
+
+            const updateBtn = document.getElementById('updateStatusBtn');
+            if (updateBtn) {
+                updateBtn.addEventListener('click', fetchAndRenderStatus);
+            }
+
+            fetchAndRenderStatus();
+        });
 
     </script>
 </body>

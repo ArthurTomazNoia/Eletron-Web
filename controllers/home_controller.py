@@ -1,7 +1,8 @@
 
 
 from bottle import Bottle
-from .base_controller import BaseController 
+from .base_controller import BaseController
+import controllers.esp_controller as esp_c
 
 
 class HomeController(BaseController):
@@ -25,7 +26,13 @@ class HomeController(BaseController):
     
     
     def manual(self):
-        return self.render('manual')
+        manual_set_result = esp_c.esp_service.perform_esp_action('mode', 'set', {'set': 'manual'})
+        message = ""
+        if not manual_set_result["success"]:
+            message = f"Erro ao ativar modo manual na ESP32: {manual_set_result['error']}"
+        else:
+            message = manual_set_result["message"]
+        return self.render('manual', message=message)
    
     
     def tut(self):

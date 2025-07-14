@@ -41,36 +41,30 @@
         <h1 class="title">Laser Alarm</h1>
         <p class="page-subtitle">Energia:</p>
         <div class="button-container">
-            <button id="btn-ligar" class="btn btn-yellow">Ligar</button>
-            <button id="btn-desligar" class="btn btn-red">Desligar</button>
+            <button id="btn-ligar" href="/esp/action/mode/set?set=auto" class="btn btn-yellow">Ligar</button>
+            <button id="btn-desligar" href="/esp/action/mode/set?set=off" class="btn btn-red">Desligar</button>
         </div>
         <a href="/home" class="back-link">&larr; Voltar</a>
     </div>
 
     <script>
-
-        async function setEspMode(mode) {
-            let url = '';
-            if (mode === 'auto') {
-                url = '/esp/auto_mode';
-            } else if (mode === 'off') {
-                url = '/esp/off_mode';
-            } else {
-                console.error('Modo inválido para o ESP32:', mode);
-                return;
+        document.addEventListener('DOMContentLoaded', function() {
+            async function fetchCurrentMode() {
+                try {
+                    const response = await fetch('/esp/api/status');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    document.getElementById('current-mode-display').textContent = data.mode.toUpperCase();
+                } catch (error) {
+                    console.error('Erro ao buscar modo atual:', error);
+                    document.getElementById('current-mode-display').textContent = 'Erro';
+                }
             }
-
-            try {
-                const response = await fetch(url, { method: 'GET' });
-                const data = await response.text();
-                console.log(`Resposta do ESP32 para modo ${mode}:`, data);
-                alert(`Modo do ESP32 alterado para: ${mode.toUpperCase()}`);
-                loadPowerStatusOnPageLoad();
-            } catch (error) {
-                console.error(`Erro ao mudar modo do ESP32 para ${mode}:`, error);
-                alert('Erro ao comunicar com o dispositivo ESP32.');
-            }
-        }
+            fetchCurrentMode();
+            setInterval(fetchCurrentMode, 5000);
+        });
 
         const botaoLigar = document.getElementById('btn-ligar');
         const botaoDesligar = document.getElementById('btn-desligar');
@@ -78,7 +72,6 @@
         botaoLigar.addEventListener('click', async function() {
             try {
 
-                setEspMode('auto')
                 const response = await fetch('/api/energia/on', { method: 'POST' });
                 
                 alert('Alarme LIGADO com sucesso!');
@@ -90,7 +83,6 @@
         botaoDesligar.addEventListener('click', async function() {
             try {
 
-                setEspMode('off')
                 const response = await fetch('/api/energia/off', { method: 'POST' });
                 
                 alert('Alarme DESLIGADO com sucesso!');
