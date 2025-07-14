@@ -78,10 +78,36 @@
     <div class="container">
         <h1 class="title">Laser Alarm</h1>
         <p class="mode-text">Modo Manual:</p>
-        <button class="manual-button">Desativar</button>
+        <button id="off_button"class="manual-button">Desativar</button>
         <a href="/home" class="back-link">&larr; Voltar</a>
     </div>
     
+    <script>
+        async function setEspMode(mode) {
+            let url = '';
+            if (mode === 'off') {
+                url = '/esp/off_mode';
+            } else {
+                console.error('Modo inválido para o ESP32:', mode);
+                return;
+            }
+            try {
+                const response = await fetch(url, { method: 'GET' });
+                const data = await response.text();
+                console.log(`Resposta do ESP32 para modo ${mode}:`, data);
+                alert(`Modo do ESP32 alterado para: ${mode.toUpperCase()}`);
+                loadPowerStatusOnPageLoad();
+            } catch (error) {
+                console.error(`Erro ao mudar modo do ESP32 para ${mode}:`, error);
+                alert('Erro ao comunicar com o dispositivo ESP32.');
+            }
+        }
 
+        const sair_manual = document.getElementById('off_button')
+        if (sair_manual){
+            sair_manual.addEventListener('click', () => setEspMode('off'))
+        }
+
+    </script>
 </body>
 </html>
