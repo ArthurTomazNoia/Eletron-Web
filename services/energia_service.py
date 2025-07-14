@@ -1,5 +1,5 @@
-
-
+import datetime
+from services.email_service import EmailService
 from models.energia import EnergiaModel
 from services.logs_service import LogService
 
@@ -8,6 +8,7 @@ class EnergiaService:
     def __init__(self):
         self.energia_model = EnergiaModel()
         self.log_service = LogService()
+        self.email_service = EmailService()
 
 
     def ligar_energia(self):
@@ -17,6 +18,11 @@ class EnergiaService:
             event="Sistema ligado", user="admin", details="Energia ativada."
         )
         print("Serviço: Energia LIGADA.")
+        timestamp = datetime.datetime.now().strftime("%d/%m-%Y %H:%M:%S")
+        self.email_service.send_notification_email(
+            subject=f"[ALERTA]Energia ligada em {timestamp}",
+            body=f"A energia foi ligada em {timestamp}."
+        )
         
 
     def desligar_energia(self):
@@ -26,6 +32,11 @@ class EnergiaService:
             event="Sistema desligado", user="admin", details="Energia desativada."
         )
         print("Serviço: Energia DESLIGADA.")
+        timestamp = datetime.datetime.now().strftime("%d/%m-%Y %H:%M:%S")
+        self.email_service.send_notification_email(
+            subject=f"[ALERTA]Energia desligada em {timestamp}",
+            body=f"A energia foi desligada em {timestamp}."
+        )
 
     def obter_status_atual(self):
         

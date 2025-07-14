@@ -1,5 +1,54 @@
 [
     {
+        "id": "e34d6695-63f2-4aae-9ff6-1f384e59e7fc",
+        "timestamp": "2025-07-14T14:49:02.685190",
+        "event": "Sistema ligado",
+        "user": "admin",
+        "details": "Energia ativada."
+    },
+    {
+        "id": "55d2a881-151c-4cd0-8c60-55f7312e7102",
+        "timestamp": "2025-07-14T13:20:23.730298",
+        "event": "Sistema ligado",
+        "user": "admin",
+        "details": "Energia ativada."
+    },
+    {
+        "id": "dd72b13b-0c8f-4633-9fb7-0dcf06a596f8",
+        "timestamp": "2025-07-14T12:46:49.197529",
+        "event": "Sistema desligado",
+        "user": "admin",
+        "details": "Energia desativada."
+    },
+    {
+        "id": "184b989c-cd07-498f-854e-6dd5b1f681e8",
+        "timestamp": "2025-07-14T12:40:45.536303",
+        "event": "Sistema ligado",
+        "user": "admin",
+        "details": "Energia ativada."
+    },
+    {
+        "id": "4256627a-3622-49c9-9504-a352007b926a",
+        "timestamp": "2025-07-14T12:39:20.414684",
+        "event": "Sistema desligado",
+        "user": "admin",
+        "details": "Energia desativada."
+    },
+    {
+        "id": "f02d616a-2fde-40fc-bba5-7c07e99ce499",
+        "timestamp": "2025-07-14T11:31:41.077151",
+        "event": "Sistema ligado",
+        "user": "admin",
+        "details": "Energia ativada."
+    },
+    {
+        "id": "d350fc1d-bdcf-49f3-9167-9daba095e2e2",
+        "timestamp": "2025-07-14T11:31:21.431196",
+        "event": "Sistema desligado",
+        "user": "admin",
+        "details": "Energia desativada."
+    },
+    {
         "id": "dd4fc2e1-8927-4e55-a6b7-bdbee4db3df1",
         "timestamp": "2025-07-13T19:30:57.072925",
         "event": "Sistema ligado",
