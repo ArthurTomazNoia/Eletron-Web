@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laser Alarm - Modo Manual</title>
     <style>
-        /* Importa uma fonte do Google Fonts parecida com a da imagem */
+        
         @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@700;900&display=swap');
 
         body {

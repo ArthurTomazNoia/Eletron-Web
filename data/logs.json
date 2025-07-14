@@ -1,5 +1,19 @@
 [
     {
+        "id": "dd4fc2e1-8927-4e55-a6b7-bdbee4db3df1",
+        "timestamp": "2025-07-13T19:30:57.072925",
+        "event": "Sistema ligado",
+        "user": "admin",
+        "details": "Energia ativadda."
+    },
+    {
+        "id": "25ba688c-fc70-443e-a12e-b9cb16e68567",
+        "timestamp": "2025-07-13T19:30:50.098637",
+        "event": "Sistema desligado",
+        "user": "admin",
+        "details": "Energia desativada."
+    },
+    {
         "id": "83b8c0e6-c336-460a-9fa7-417a74ea0045",
         "timestamp": "2025-07-13T19:27:51.509693",
         "event": "Sistema ligado",

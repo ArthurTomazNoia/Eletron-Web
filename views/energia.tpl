@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laser Alarm - Energia</title>
     <style>
-        /* Seu CSS continua o mesmo aqui... */
+        
         @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@700;900&display=swap');
         body{background-color:#000;color:#fff;font-family:'Heebo',sans-serif;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;text-align:center;}
         .container{display:flex;flex-direction:column;align-items:center;}
@@ -14,7 +14,7 @@
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 2px;
-            /* Efeito de brilho sutil no título */
+            
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
             margin-bottom: 40px;
         }
@@ -53,25 +53,25 @@
 
         botaoLigar.addEventListener('click', async function() {
             try {
-                // ATUALIZADO com o prefixo /api
+                
                 const response = await fetch('/api/energia/on', { method: 'POST' });
-                // ... resto do código ...
+                
                 alert('Alarme LIGADO com sucesso!');
                 window.location.href = '/home';
             } catch (error) {
-                // ...
+                
             }
         });
 
         botaoDesligar.addEventListener('click', async function() {
             try {
-                // ATUALIZADO com o prefixo /api
+                
                 const response = await fetch('/api/energia/off', { method: 'POST' });
-                // ... resto do código ...
+                
                 alert('Alarme DESLIGADO com sucesso!');
                 window.location.href = '/home';
             } catch (error) {
-                // ...
+                
             }
         });
     </script>

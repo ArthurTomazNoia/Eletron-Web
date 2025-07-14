@@ -27,7 +27,7 @@ class UserController(BaseController):
         if request.method == 'GET':
             return self.render('user_form', user=None, action="/users/add")
         else:
-            # POST - salvar usuário
+            
             self.user_service.save()
             self.redirect('/users')
 
@@ -40,7 +40,7 @@ class UserController(BaseController):
         if request.method == 'GET':
             return self.render('user_form', user=user, action=f"/users/edit/{user_id}")
         else:
-            # POST - salvar edição
+            
             self.user_service.edit_user(user)
             self.redirect('/users')
 

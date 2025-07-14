@@ -9,10 +9,7 @@ class EnergiaController(BaseController):
         self.setup_routes()
 
     def setup_routes(self):
-        """
-        Mapeia as URLs da API. Note o prefixo /api.
-        """
-        # Rota para a PÁGINA HTML
+       
         self.app.route('/energia', method='GET', callback=self.render_energia_page)
 
         # Rotas para a API (retornam JSON)
@@ -21,11 +18,9 @@ class EnergiaController(BaseController):
         self.app.route('/api/energia/off', method='POST', callback=self.turn_off)
 
     def render_energia_page(self):
-        """
-        Esta é a "porta da frente". Ela renderiza o arquivo HTML para o usuário.
-        """
-        # Supondo que seu template se chama 'energia.html' e está na pasta 'templates'
-        return self.render('energia') # O BaseController precisa ter esse método 'render'
+        
+        
+        return self.render('energia') 
 
     def get_status(self):
         status_atual = self.energia_service.obter_status_atual()

@@ -15,9 +15,18 @@
         th{background-color:#222;font-weight:700;}
         tr:nth-child(even){background-color:#1a1a1a;}
         .back-link{color:#00BFFF;text-decoration:none;font-size:1.2em;}
+        .imagem-fixa {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 100px;
+            height: auto; 
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
+    <img style="width:20%" src="http://localhost:8080/static/img/Eletro.png" alt="Logo-eletronjun" class="imagem-fixa">
     <div class="container">
         <h1 class="title">Laser Alarm</h1>
         <h2 class="page-subtitle">Histórico (logs):</h2>

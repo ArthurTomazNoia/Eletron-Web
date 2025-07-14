@@ -39,7 +39,7 @@ class BaseController:
 
 
     def redirect(self, path, code=302):
-        """Redirecionamento robusto com tratamento de erros"""
+        
         from bottle import HTTPResponse, response as bottle_response
 
         try:

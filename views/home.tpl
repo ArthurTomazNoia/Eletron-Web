@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laser Alarm</title>
     <style>
-        /* Seu CSS, sem alterações... */
+        
         @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@700;900&display=swap');
         body { background-color: #000; color: #fff; font-family: 'Heebo', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; text-align: center; }
         .container { display: flex; flex-direction: column; align-items: center; }
@@ -42,22 +42,22 @@
     </div>
 
     <script>
-        // Função para atualizar a aparência do status na tela
+        
         function atualizarStatusNaTela(status) {
             const statusDisplay = document.getElementById('status-display');
             if (status === 'ligado') {
                 statusDisplay.textContent = 'Ativo';
-                statusDisplay.className = 'active'; // Aplica a cor verde
+                statusDisplay.className = 'active'; 
             } else {
                 statusDisplay.textContent = 'Inativo';
-                statusDisplay.className = 'inactive'; // Aplica a cor vermelha
+                statusDisplay.className = 'inactive'; 
             }
         }
 
-        // Função assíncrona para buscar o status NO SERVIDOR
+        
         async function verificarStatusDoServidor() {
             try {
-                // Faz a chamada GET para o endpoint da API
+                
                 const response = await fetch('/api/energia/status');
                 if (!response.ok) {
                     throw new Error('Erro de rede.');
@@ -73,7 +73,7 @@
             }
         }
 
-        // Evento que dispara a verificação assim que a página terminar de carregar
+        
         document.addEventListener('DOMContentLoaded', verificarStatusDoServidor);
     </script>
 </body>
