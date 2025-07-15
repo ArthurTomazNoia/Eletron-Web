@@ -69,31 +69,20 @@
         const botaoLigar = document.getElementById('btn-ligar');
         const botaoDesligar = document.getElementById('btn-desligar');
 
-        if (botaoLigar) {
-            botaoLigar.addEventListener('click', ()=> {
-                sendAction('/esp/action/mode/set?set=auto', 'Modo Automático ativado!', 'Falha ao ativar modo automático.');
-            });
-        }
+
         botaoLigar.addEventListener('click', async function() {
             try {
-                sendAction('/esp/action/mode/set?set=auto', 'Modo Automático ativado!', 'Falha ao ativar modo automático.');
                 const response = await fetch('/api/energia/on', { method: 'POST' });
                 
-                alert('Alarme LIGADO com sucesso!');
+                alert('Alarme LIGADO com sucesso! (Modo Automático)');
                 window.location.href = '/home';
             } catch (error) {
                 
             }
         });
         
-        if (botaoDesligar) {
-            botaoDesligar.addEventListener('click', () => {
-                sendAction('/esp/action/mode/set?set=off', 'Modo Desligado ativado!', 'Falha ao ativar modo desligado.');
-            });
-        }
         botaoDesligar.addEventListener('click', async function() {
             try {
-
                 const response = await fetch('/api/energia/off', { method: 'POST' });
 
                 alert('Alarme DESLIGADO com sucesso!');

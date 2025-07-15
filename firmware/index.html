@@ -1,0 +1,45 @@
+# Este é o arquivo HTML carregado dentro da ESP32, nele estão os botões e links que controlam o alarme.
+# Ele é renderizado pelo ESP32 e deve ser atualizado com as informações do estado atual do alarme.
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle ESP32</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+        .mode-status { font-weight: bold; }
+        .alert-message { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Controle de Alarme ESP32</h1>
+
+    <p>Modo Atual: <strong class="mode-status">{CURRENT_MODE}</strong></p>
+
+    <p class="alert-message" {MANUAL_ALERT_STYLE}>{MANUAL_ALERT_MESSAGE}</p>
+    {MANUAL_ALERT_RESET_LINK}
+
+    <h2>Controle de Componentes:</h2>
+    <form action="/toggle_laser" method="POST">
+        <button type="submit">Ligar/Desligar Laser</button>
+    </form>
+    <p><a href="/buzzer?state=on">Ligar Buzzer</a> | <a href="/buzzer?state=off">Desligar Buzzer</a></p>
+    <p><a href="/read_ldr">Ler LDR</a></p>
+
+    <h2>Controle de LEDs:(Sem funcionalidade)</h2>
+    <p>LED Verde: <a href="/led?color=verde&state=on">Ligar</a> | <a href="/led?color=verde&state=off">Desligar</a></p>
+    <p>LED Amarelo: <a href="/led?color=amarelo&state=on">Ligar</a> | <a href="/led?color=amarelo&state=off">Desligar</a></p>
+    <p>LED Vermelho: <a href="/led?color=vermelho&state=on">Ligar</a> | <a href="/led?color=vermelho&state=off">Desligar</a></p>
+
+    <h2>Modos de Operação:</h2>
+    <p><a href="/mode?set=off">Modo Desligado</a> | <a href="/manual">Modo Manual</a> | <a href="/mode?set=auto">Modo Automático</a></p>
+    <p><a href="/get_alarm_status">Status do Alarme</a></p>
+    <form action="/get_status_json" method="GET">
+        <button type="submit"> GET STATUS JSON</button>
+    </form>
+</body>
+
+</html>

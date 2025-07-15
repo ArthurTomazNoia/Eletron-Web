@@ -203,7 +203,7 @@
             const ldrStatusDisplay = document.getElementById('ldr-status-display');
             const ledYellowDisplay = document.getElementById('led-yellow-display');
             const manualAlertSection = document.getElementById('manual-alert-section');
-            const messageDisplay = document.querySelector('.message-display'); // Para mensagens do Bottle
+            const messageDisplay = document.querySelector('.message-display');
 
             const updateStatusBtn = document.getElementById('updateStatusBtn');
             const resetIntrusionBtn = document.getElementById('resetIntrusionBtn');
@@ -246,7 +246,6 @@
                         if (status.mode === 'manual' && status.manual_interruption_detected) {
                             manualAlertSection.innerHTML = `
                                 <p class="alert-message">ALERTA: Intrusão detectada!</p>
-                                <a href="/esp/action/manual_alert/reset" class="button">Limpar Alerta Manual</a>
                             `;
                         }
                         
