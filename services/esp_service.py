@@ -16,15 +16,23 @@ class EspService():
         Retorna o texto da resposta ou levanta uma exceção em caso de erro.
         """
         try:
+            print(f"DEBUG: Enviando {method} request para ESP32 URL: {url}")
             if method == "POST":
-                res = requests.post(url, data=data)
+                res = requests.post(url, data=data, timeout=10) # Adicionado timeout
             else:
-                res = requests.get(url)
+                res = requests.get(url, timeout=10) # Adicionado timeout
             res.raise_for_status()
+            print(f"DEBUG: Resposta da ESP32 para {url} (Status: {res.status_code}): {res.text[:200]}...")
             return res.text
+        except requests.exceptions.Timeout:
+            print(f"ERRO: Timeout ao comunicar com ESP32 em {url}")
+            raise ConnectionError(f"Timeout: ESP32 não respondeu em tempo. Verifique a conexão Wi-Fi da ESP32.")
+        except requests.exceptions.ConnectionError as e:
+            print(f"ERRO: Conexão recusada ou falha de rede ao comunicar com ESP32 em {url}: {e}")
+            raise ConnectionError(f"Conexão recusada/falha de rede: ESP32 pode estar offline ou IP incorreto. Detalhes: {e}")
         except requests.exceptions.RequestException as e:
-            print(f"ERRO ao comunicar com ESP32 em {url}: {e}")
-            raise ConnectionError(f"ESP32 não conectada ou requisição falhou: {e}")
+            print(f"ERRO geral ao comunicar com ESP32 em {url}: {e}")
+            raise ConnectionError(f"Erro na requisição HTTP para ESP32: {e}")
 
     def _send_request_json(self, url, method="GET", data=None):
         """
@@ -35,7 +43,7 @@ class EspService():
             res_text = self._send_request(url, method, data)
             return json.loads(res_text)
         except json.JSONDecodeError as e:
-            print(f"ERRO ao decodificar JSON da ESP32 em {url}: {e}")
+            print(f"ERRO ao decodificar JSON da ESP32 em {url}: {e}. Resposta: '{res_text[:100]}...'")
             raise ValueError(f"Resposta JSON inválida da ESP32: {e}")
         except ConnectionError as e:
             raise e
@@ -63,13 +71,18 @@ class EspService():
         
         if query_params is None:
             query_params = {}
+        
+        print(f"DEBUG: perform_esp_action chamado. Device: {device}, Action: {action_type}, Params: {query_params}")
 
         try:
             if device == 'mode':
                 mode_set = query_params.get('set')
                 if not mode_set:
                     raise ValueError("Parâmetro 'set' de modo ausente.")
-                esp32_url = f"{self.esp32_base_url}/mode?set={mode_set}"
+                if mode_set == 'manual':
+                    esp32_url = f"{self.esp32_base_url}/manual"
+                else:
+                    esp32_url = f"{self.esp32_base_url}/mode?set={mode_set}"
             elif device == 'laser' and action_type == 'toggle':
                 esp32_url = f"{self.esp32_base_url}/toggle_laser"
                 method = "POST" 

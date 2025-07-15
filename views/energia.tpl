@@ -41,8 +41,8 @@
         <h1 class="title">Laser Alarm</h1>
         <p class="page-subtitle">Energia:</p>
         <div class="button-container">
-            <button id="btn-ligar" href="/esp/action/mode/set?set=auto" class="btn btn-yellow">Ligar</button>
-            <button id="btn-desligar" href="/esp/action/mode/set?set=off" class="btn btn-red">Desligar</button>
+            <button id="btn-ligar" class="btn btn-yellow">Ligar</button>
+            <button id="btn-desligar" class="btn btn-red">Desligar</button>
         </div>
         <a href="/home" class="back-link">&larr; Voltar</a>
     </div>
@@ -69,9 +69,14 @@
         const botaoLigar = document.getElementById('btn-ligar');
         const botaoDesligar = document.getElementById('btn-desligar');
 
+        if (botaoLigar) {
+            botaoLigar.addEventListener('click', ()=> {
+                sendAction('/esp/action/mode/set?set=auto', 'Modo Automático ativado!', 'Falha ao ativar modo automático.');
+            });
+        }
         botaoLigar.addEventListener('click', async function() {
             try {
-
+                sendAction('/esp/action/mode/set?set=auto', 'Modo Automático ativado!', 'Falha ao ativar modo automático.');
                 const response = await fetch('/api/energia/on', { method: 'POST' });
                 
                 alert('Alarme LIGADO com sucesso!');
@@ -80,18 +85,24 @@
                 
             }
         });
+        
+        if (botaoDesligar) {
+            botaoDesligar.addEventListener('click', () => {
+                sendAction('/esp/action/mode/set?set=off', 'Modo Desligado ativado!', 'Falha ao ativar modo desligado.');
+            });
+        }
         botaoDesligar.addEventListener('click', async function() {
             try {
 
                 const response = await fetch('/api/energia/off', { method: 'POST' });
-                
+
                 alert('Alarme DESLIGADO com sucesso!');
                 window.location.href = '/home';
             } catch (error) {
                 
             }
-        
         });
+        
     </script>
 </body>
 </html>
