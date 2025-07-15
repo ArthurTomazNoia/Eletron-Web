@@ -19,9 +19,17 @@
         .info-link { color: #00BFFF; text-decoration: none; margin-top: 40px; font-size: 1em; font-weight: 700; }
         .info-link:hover { text-decoration: underline; }
         .imagem-fixa { position: fixed; top: 20px; right: 20px; width: 150px; height: auto; z-index: 1000; }
+        .btn-disabled 
+        {
+            background-color: #cccccc;
+            color: #666666;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
+
     <img style="width:20%" src="/static/img/Eletro.png" alt="Logo-eletronjun" class="imagem-fixa">
 
     <div class="container">
@@ -35,7 +43,13 @@
         <div class="button-container">
             <a href="/energia" class="btn">Energia</a>
             <a href="/logs" class="btn">Histórico</a>
+           
             <a href="/manual" class="btn">Manual</a>
+           
+                
+              
+
+
             <a href="/configuracoes" class="btn">Config</a>
         </div>
 
