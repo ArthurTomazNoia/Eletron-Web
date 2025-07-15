@@ -9,11 +9,13 @@ from controllers.settings_controller import settings_routes
 
 
 
+
 def init_controllers(app: Bottle):
     app.merge(user_routes)
     app.merge(home_routes)
     app.merge(energia_routes)
     app.merge(log_routes)
     app.merge(settings_routes)
+
 
     
