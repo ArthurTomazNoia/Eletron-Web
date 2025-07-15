@@ -81,7 +81,7 @@
 
         %if defined('message') and message:
             <p class="message-display {{'error-message' if 'Erro' in message else ''}}">{{message}}</p>
-        %endif
+        %end
 
         <div class="status-section">
             <p id="loading-status">Carregando status...</p>
