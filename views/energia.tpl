@@ -33,6 +33,22 @@
             height: auto; 
             z-index: 1000;
         }
+        .message-display { 
+            background-color: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+            border: 1px solid #28a745;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+            display: none; /* Escondido por padrão, mostrado pelo JS */
+        }
+        .error-message {
+            background-color: rgba(220, 53, 69, 0.2);
+            color: #dc3545;
+            border: 1px solid #dc3545;
+        }
     </style>
 </head>
 <body>
@@ -40,15 +56,56 @@
     <div class="container">
         <h1 class="title">Laser Alarm</h1>
         <p class="page-subtitle">Energia:</p>
+
+        <p class="message-display" id="energia-message-display"></p>
+
         <div class="button-container">
-            <button id="btn-ligar" class="btn btn-yellow">Ligar</button>
-            <button id="btn-desligar" class="btn btn-red">Desligar</button>
+            <button id="btn-ligar" class="btn btn-yellow">Ligar (AUTO)</button>
+            <button id="btn-desligar" class="btn btn-red">Desligar (OFF)</button>
         </div>
         <a href="/home" class="back-link">&larr; Voltar</a>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const botaoLigar = document.getElementById('btn-ligar');
+            const botaoDesligar = document.getElementById('btn-desligar');
+
+            function showDynamicMessage(msg, isError = false) {
+                if (!messageDisplay) return;
+                messageDisplay.textContent = msg;
+                messageDisplay.classList.remove('error-message');
+                if (isError) {
+                    messageDisplay.classList.add('error-message');
+                }
+                messageDisplay.style.display = 'block';
+                setTimeout(() => { messageDisplay.style.display = 'none'; }, 5000);
+            }
+
+            async function sendAction(url, successMessage, errorMessage, navigateTo = null) {
+                try {
+                    const response = await fetch(window.location.origin + url);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const result = await response.json();
+
+                    if (result.success) {
+                        showDynamicMessage(successMessage || result.message);
+                        if (navigateTo) {
+                            window.location.href = navigateTo;
+                        } else {
+                            fetchCurrentMode();
+                        }
+                    } else {
+                        showDynamicMessage(errorMessage || result.error, true);
+                    }
+                } catch (error) {
+                    console.error('Erro ao enviar ação:', error);
+                    showDynamicMessage(errorMessage || 'Erro ao enviar comando: ' + error.message, true);
+                }
+            }
+
             async function fetchCurrentMode() {
                 try {
                     const response = await fetch('/esp/api/status');
@@ -62,34 +119,42 @@
                     document.getElementById('current-mode-display').textContent = 'Erro';
                 }
             }
-            fetchCurrentMode();
-            setInterval(fetchCurrentMode, 5000);
-        });
 
-        const botaoLigar = document.getElementById('btn-ligar');
-        const botaoDesligar = document.getElementById('btn-desligar');
+            if (botaoLigar){
+                botaoLigar.addEventListener('click', async function() {
+                    try {
+                        const response = await fetch('/api/energia/on', { method: 'POST' });
 
-
-        botaoLigar.addEventListener('click', async function() {
-            try {
-                const response = await fetch('/api/energia/on', { method: 'POST' });
-                
-                alert('Alarme LIGADO com sucesso! (Modo Automático)');
-                window.location.href = '/home';
-            } catch (error) {
-                
+                        sendAction('/esp/action/mode/set?set=auto', 
+                                'Alarme LIGADO com sucesso! (Modo Automático)', 
+                                'Falha ao ligar alarme. Verifique a ESP32.', 
+                                '/');
+                        
+                        alert('Alarme LIGADO com sucesso! (Modo Automático)');
+                    } catch (error) {
+                        
+                    }
+                });
             }
-        });
-        
-        botaoDesligar.addEventListener('click', async function() {
-            try {
-                const response = await fetch('/api/energia/off', { method: 'POST' });
+            if (botaoDesligar){
+                botaoDesligar.addEventListener('click', async function() {
+                    try {
+                        const response = await fetch('/api/energia/off', { method: 'POST' });
 
-                alert('Alarme DESLIGADO com sucesso!');
-                window.location.href = '/home';
-            } catch (error) {
-                
+                        sendAction('/esp/action/mode/set?set=off', 
+                                'Alarme DESLIGADO com sucesso! (Modo OFF)', 
+                                'Falha ao desligar alarme. Verifique a ESP32.', 
+                                '/');
+
+                        alert('Alarme DESLIGADO com sucesso!');
+                    } catch (error) {
+                        
+                    }
+                });
             }
+
+            fetchCurrentMode()
+            setInterval(fetchCurrentMode, 10000)
         });
         
     </script>

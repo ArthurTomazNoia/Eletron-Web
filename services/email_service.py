@@ -2,7 +2,7 @@ import smtplib
 import ssl
 from email.message import EmailMessage
 import os
-from services.settings_service import SettingsService # <-- NOVO
+from services.settings_service import SettingsService
 
 # --- INFORMAÇÕES SENSÍVEIS (DO REMETENTE) ---
 EMAIL_SENDER = os.environ.get('GMAIL_USER') or 'alarmenotificacoes@gmail.com'
@@ -11,14 +11,13 @@ EMAIL_PASSWORD = os.environ.get('GMAIL_APP_PASSWORD') or 'exhr uenuoyjijjmc'
 class EmailService:
     def __init__(self):
         # O EmailService agora precisa do SettingsService para saber para quem enviar
-        self.settings_service = SettingsService() # <-- NOVO
+        self.settings_service = SettingsService()
 
     def send_notification_email(self, subject: str, body: str):
         if not all([EMAIL_SENDER, EMAIL_PASSWORD]):
             print("--- SERVIÇO DE EMAIL: Email do remetente não configurado. ---")
             return
 
-        # <-- LÓGICA MODIFICADA: Busca o email do destinatário nas configurações -->
         email_receiver = self.settings_service.get_notification_email()
 
         if not email_receiver:
@@ -27,7 +26,7 @@ class EmailService:
 
         em = EmailMessage()
         em['From'] = EMAIL_SENDER
-        em['To'] = email_receiver # <-- USA A VARIÁVEL
+        em['To'] = email_receiver
         em['Subject'] = subject
         em.set_content(body)
 

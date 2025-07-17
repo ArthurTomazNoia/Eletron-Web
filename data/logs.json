@@ -1,5 +1,124 @@
 [
     {
+        "id": "76c159d1-0195-4a09-b44e-5f417a205804",
+        "timestamp": "2025-07-17T01:14:13.898435",
+        "event": "Sistema ligado",
+        "user": "admin",
+        "details": "Energia ativada."
+    },
+    {
+        "id": "303a60b8-4422-44a2-9b64-5ed493b98861",
+        "timestamp": "2025-07-17T01:12:32.750467",
+        "event": "Sistema desligado",
+        "user": "admin",
+        "details": "Energia desativada."
+    },
+    {
+        "id": "16d59b5d-a0a8-4a09-8f19-7915d031830f",
+        "timestamp": "2025-07-17T01:12:08.167944",
+        "event": "Sistema ligado",
+        "user": "admin",
+        "details": "Energia ativada."
+    },
+    {
+        "id": "4568ab95-cc56-4906-9774-0e08904b4aec",
+        "timestamp": "2025-07-17T01:09:43.038979",
+        "event": "INTRUSÃO DETECTADA",
+        "user": "Sistema",
+        "details": "O sensor laser foi interrompido."
+    },
+    {
+        "id": "30f42dab-a4ad-4c0d-b3b3-4ee154dc00f2",
+        "timestamp": "2025-07-17T01:09:39.721516",
+        "event": "INTRUSÃO DETECTADA",
+        "user": "Sistema",
+        "details": "O sensor laser foi interrompido."
+    },
+    {
+        "id": "362e2be0-29f6-4dc8-997f-f441dbe85989",
+        "timestamp": "2025-07-17T01:09:26.948500",
+        "event": "Sistema desligado",
+        "user": "admin",
+        "details": "Energia desativada."
+    },
+    {
+        "id": "dba921fa-af24-47a9-8b5d-bda480efaf89",
+        "timestamp": "2025-07-17T01:09:11.417718",
+        "event": "INTRUSÃO DETECTADA",
+        "user": "Sistema",
+        "details": "O sensor laser foi interrompido."
+    },
+    {
+        "id": "1bd4f3b3-3ad7-4a4e-a24d-aed653ca7141",
+        "timestamp": "2025-07-17T01:07:59.351077",
+        "event": "Sistema ligado",
+        "user": "admin",
+        "details": "Energia ativada."
+    },
+    {
+        "id": "d713c445-1621-4d73-9e1f-57e7c05ffd23",
+        "timestamp": "2025-07-17T00:46:08.605977",
+        "event": "INTRUSÃO DETECTADA",
+        "user": "Sistema",
+        "details": "O sensor laser foi interrompido."
+    },
+    {
+        "id": "d14f6732-7b72-41ce-9bbf-52b309e8b99f",
+        "timestamp": "2025-07-17T00:36:25.925578",
+        "event": "INTRUSÃO DETECTADA",
+        "user": "Sistema",
+        "details": "O sensor laser foi interrompido."
+    },
+    {
+        "id": "563e4430-c344-47b4-8661-933fd276ee69",
+        "timestamp": "2025-07-17T00:04:04.185763",
+        "event": "INTRUSÃO DETECTADA",
+        "user": "Sistema",
+        "details": "O sensor laser foi interrompido."
+    },
+    {
+        "id": "7efbac30-ad82-433e-a05f-6981cbc209a2",
+        "timestamp": "2025-07-17T00:03:59.702263",
+        "event": "INTRUSÃO DETECTADA",
+        "user": "Sistema",
+        "details": "O sensor laser foi interrompido."
+    },
+    {
+        "id": "bb61b301-22ac-4573-ad10-b2889be2d7ac",
+        "timestamp": "2025-07-17T00:03:46.939599",
+        "event": "INTRUSÃO DETECTADA",
+        "user": "Sistema",
+        "details": "O sensor laser foi interrompido."
+    },
+    {
+        "id": "3aaf9b49-e4e8-4f53-ad08-f79c58196201",
+        "timestamp": "2025-07-17T00:02:42.412267",
+        "event": "INTRUSÃO DETECTADA",
+        "user": "Sistema",
+        "details": "O sensor laser foi interrompido."
+    },
+    {
+        "id": "bd968c96-de3b-49b8-90e0-95eca3d2bc8a",
+        "timestamp": "2025-07-17T00:02:39.873675",
+        "event": "INTRUSÃO DETECTADA",
+        "user": "Sistema",
+        "details": "O sensor laser foi interrompido."
+    },
+    {
+        "id": "0d44144c-7af1-4310-8eff-2df873cbd912",
+        "timestamp": "2025-07-16T23:33:00.368069",
+        "event": "INTRUSÃO DETECTADA",
+        "user": "Sistema",
+        "details": "O sensor laser foi interrompido."
+    },
+    {
+        "id": "bcc5b729-6b53-4462-aef0-6c972476fd54",
+        "timestamp": "2025-07-16T23:32:57.357266",
+        "event": "INTRUSÃO DETECTADA",
+        "user": "Sistema",
+        "details": "O sensor laser foi interrompido."
+    },
+    {
         "id": "5492f1b0-925e-4702-a771-3cdaa541a01f",
         "timestamp": "2025-07-15T20:14:09.728382",
         "event": "Sistema ligado",

@@ -1,9 +1,10 @@
 from bottle import Bottle, request, route, redirect, response
 import json
+from config import Config
 
 from services.esp_service import EspService 
 
-ESP32_TARGET_IP = "192.168.0.130" 
+ESP32_TARGET_IP = Config.ESP32_IP
 
 esp_service = EspService(esp32_ip=ESP32_TARGET_IP)
 esp_ctl_app = Bottle()
@@ -33,10 +34,12 @@ def perform_action(device, action_type):
 
     action_result = esp_service.perform_esp_action(device, action_type, query_params)
 
+    response.content_type = 'application/json'
     if action_result["success"]:
-        redirect(f'/?message={action_result["message"]}')
+        return json.dumps({"success": True, "message": action_result["message"]})
     else:
-        redirect(f'/?message=Erro: {action_result["error"]}')
+        response.status = 400 # Bad Request para erros de cliente, ou 500 para erros internos
+        return json.dumps({"success": False, "error": action_result["error"]})
 
 # Rota para /manual
 @esp_ctl_app.route('/manual')

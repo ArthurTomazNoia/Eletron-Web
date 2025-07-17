@@ -51,8 +51,8 @@ class StatusMonitor:
                 details="O sensor laser foi interrompido."
             )
             self.email_service.send_notification_email(
-                subject="[ALERTA MÁXIMO] INTRUSÃO DETECTADA NO LASER ALARM!",
-                body=f"Atenção! Uma intrusão foi detectada pelo sensor laser em {timestamp}."
+                subject="[ALERTA] INTRUSÃO DETECTADA NO LASER ALARM!",
+                body=f"Atenção! Uma intrusão foi detectada pelo sensor em {timestamp}."
             )
 
         self.last_alarm_state = current_alarm_state

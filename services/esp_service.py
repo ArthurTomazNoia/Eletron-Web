@@ -3,11 +3,11 @@ import requests
 import json 
 
 # Após conectar o ESP32, o 'esp32_ip' será encontrado no Monitor Serial da IDE
-# Substitua pelo IP da sua ESP32
+# Substitua pelo IP da sua ESP32 em config.py
 
 class EspService():
-    def __init__(self, esp32_ip="192.168.0.130"): # O IP agora é passado na inicialização
-        self.esp32_ip = esp32_ip # O usuário deve substituir este IP
+    def __init__(self, esp32_ip): # O IP é passado como parâmetro
+        self.esp32_ip = esp32_ip # O usuário deve substituir este IP em config.py
         self.esp32_base_url = f"http://{self.esp32_ip}"
 
     def _send_request(self, url, method="GET", data=None):

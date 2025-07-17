@@ -25,10 +25,10 @@ class App:
 
     def run(self):
         self.setup_routes()
-          # --- LÓGICA DO VIGIA EM BACKGROUND ---
+
         print("🔧 Inicializando serviços para o monitor...")
        
-        esp_service = EspService(esp32_ip=getattr(self.config, 'ESP32_IP', '192.168.0.130'))
+        esp_service = EspService(self.config.ESP32_IP)
         log_service = LogService()
         email_service = EmailService()
 
@@ -41,8 +41,6 @@ class App:
         print("🚦 Iniciando monitor em background...")
         monitor_thread = threading.Thread(target=monitor.run, daemon=True)
         monitor_thread.start()
-        
-        # --- FIM DA LÓGICA DO VIGIA ---
 
         print(f"🛰️  Servidor web iniciado em http://{self.config.HOST}:{self.config.PORT}")
         if self.config.RELOADER:

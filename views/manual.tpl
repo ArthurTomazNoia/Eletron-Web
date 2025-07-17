@@ -187,9 +187,6 @@
         <div class="button-grid">
             <button id="backToMainBtn" class="action-button">Voltar ao Menu Principal</button>
 
-            <button id="activateAutoBtn" class="action-button">Ativar Modo Automático</button>
-            <button id="activateOffBtn" class="action-button">Ativar Modo Desligado</button>
-
         </div>
     </div>
     
@@ -208,8 +205,6 @@
             const updateStatusBtn = document.getElementById('updateStatusBtn');
             const resetIntrusionBtn = document.getElementById('resetIntrusionBtn');
             const backToMainBtn = document.getElementById('backToMainBtn');
-            const activateAutoBtn = document.getElementById('activateAutoBtn');
-            const activateOffBtn = document.getElementById('activateOffBtn');
 
             function showDynamicMessage(msg, isError = false) {
                 if (!messageDisplay) return;
@@ -300,19 +295,8 @@
                     // ATIVA O MODO OFF DA ESP ANTES DE VOLTAR AO MENU PRINCIPAL
                     sendAction('/esp/action/mode/set?set=off', 
                                'Modo Desligado ativado. Voltando ao Menu Principal...', 
-                               'Falha ao desativar modo. Verifique a ESP32.', 
+                               'Falha ao desativar modo. Verifique a ESP32.',
                                '/');
-                });
-            }
-            if (activateAutoBtn) {
-                activateAutoBtn.addEventListener('click', () => {
-                    sendAction('/esp/action/mode/set?set=auto', 'Modo Automático ativado!', 'Falha ao ativar modo automático.');
-                });
-            }
-
-            if (activateOffBtn) {
-                activateOffBtn.addEventListener('click', () => {
-                    sendAction('/esp/action/mode/set?set=off', 'Modo Desligado ativado!', 'Falha ao ativar modo desligado.');
                 });
             }
 

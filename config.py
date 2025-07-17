@@ -2,6 +2,7 @@ import os
 
 class Config:
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    ESP32_IP = '192.168.0.130'  # IP do ESP32 na rede local
 
     # Configurações do servidor
     HOST = 'localhost'
